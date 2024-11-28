@@ -3,11 +3,15 @@ const express = require('express')
 const app = express()
 const port = 3000
 const db = require("./db")
+const path = require("path");
+
 
 const fetchQuery = `SELECT * FROM words`;
 app.use(express.json()); // Parses incoming JSON requests
+// Serve static files from the frontend's dist folder
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
     db.all(fetchQuery, (err, result) => {
         if (err) {
             console.error("Error fetching data")
