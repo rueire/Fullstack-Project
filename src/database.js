@@ -15,7 +15,7 @@ let db = new sqlite3.Database(":memory:", (err) => {
 
 // Queries
 const wordsTable = 'CREATE TABLE IF NOT EXISTS words(id INTEGER PRIMARY KEY, eng_word TEXT NOT NULL, finn_word TEXT NOT NULL)';
-const insertWord = `INSERT INTO words (english_word, finnish_word) VALUES (?, ?)`;
+const insertWords = `INSERT INTO words (english_word, finnish_word) VALUES (?, ?)`;
 
 //create the database
 db.serialize(() => {
@@ -26,7 +26,7 @@ db.serialize(() => {
         }
         console.log("Table Created");
     })
-    const stmt = db.prepare(insertWord)
+    const stmt = db.prepare(insertWords)
 
     const words = [
         ['plant', 'kasvi'],
@@ -36,6 +36,7 @@ db.serialize(() => {
         ['book', 'kirja'],
         ['no', 'ei']
     ];
+
     //add words to database
     words.forEach(([english, finnish]) => {
         stmt.run(english, finnish, (err) => {
