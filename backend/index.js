@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const db = require("./db")
+const db = require("./database")
 const path = require("path");
 
 
@@ -27,7 +27,7 @@ app.listen(port, () => {
 })
 
 process.on("SIGINT", () => {
-    db.end();
+    db.close();
     console.log("Database connection closed."); //debug
     process.exit(0);
 });
