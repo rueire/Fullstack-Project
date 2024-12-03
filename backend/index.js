@@ -2,20 +2,27 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const cors = require('cors'); // Import the cors package
 const db = require("./database")
 const path = require("path");
 
-
 const fetchQuery = `SELECT * FROM words`;
+
+app.use(cors({
+    origin: 'http://localhost:5173' // Allow only your React app's origin
+}));
+
 app.use(express.json()); // Parses incoming JSON requests
+
 // Serve static files from the frontend's dist folder
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
 
 app.get("/api", (req, res) => {
     db.all(fetchQuery, (err, result) => {
         if (err) {
-            console.error("Error fetching data")
-            res.status(500).json({ error: "Failed to fetch words" });
+            console.error("Error fetching data", err)
+            res.status(500).json({ error: "Failed to fetch words", details: err.message });
             return;
         }
         res.json(result);
