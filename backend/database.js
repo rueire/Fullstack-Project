@@ -15,7 +15,7 @@ let db = new sqlite3.Database(":memory:", (err) => {
 
 // Queries
 const wordsTable = 'CREATE TABLE IF NOT EXISTS words(id INTEGER PRIMARY KEY, eng_word TEXT NOT NULL, finn_word TEXT NOT NULL)';
-const insertWords = `INSERT INTO words (english_word, finnish_word) VALUES (?, ?)`;
+const insertWords = `INSERT INTO words (eng_word, finn_word) VALUES (?, ?)`;
 
 //create the database
 db.serialize(() => {
