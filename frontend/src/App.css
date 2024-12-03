@@ -1,42 +1,51 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Global Styling */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.outerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Title Styling */
+.appTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Table Styling */
+.wordTable {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  /* Ensures table borders are not doubled */
+  margin-top: 20px;
 }
 
-.card {
-  padding: 2em;
+th,
+td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
 }
 
-.read-the-docs {
-  color: #888;
+input {
+  padding: 5px;
+  width: inherit;
 }
