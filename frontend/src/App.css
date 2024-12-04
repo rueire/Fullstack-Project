@@ -1,6 +1,7 @@
 /* Global Styling */
 body,
 html {
+  width: 100vw;
   height: 100%;
   margin: 0;
   display: flex;
@@ -8,6 +9,8 @@ html {
   align-items: center;
   flex-direction: column;
 }
+
+/*-----FetchWords-----*/
 
 .outerContainer {
   display: flex;
@@ -60,4 +63,92 @@ input {
 .wrong {
   background-color: #f8d7da;
   color: #7e000f;
+}
+
+/*-----HomeView-----*/
+
+.main-form {
+  width: 100vw;
+  height: 100vh;
+  background-color: #09334f;
+  color: #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-form h1 {
+  margin: 0;
+  top: 30px;
+  text-align: center;
+  position: absolute;
+  font-family: cursive;
+
+}
+
+.home-buttons {
+  background-color: rgb(215, 125, 28);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  height: 10vh;
+  border-radius: 5px;
+
+}
+
+.home-buttons button {
+  text-align: center;
+  width: 60vw;
+  height: 10vh;
+  font-size: x-large;
+  background: transparent;
+}
+
+.home-buttons button:hover {
+  background-color: #00000053;
+}
+
+/*-----UserView-----*/
+
+#user-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  top: 30px;
+  left: 50%;
+  right: 50%;
+  text-align: center;
+  position: absolute;
+  font-family: cursive;
+}
+
+.user-choices {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80vw;
+  height: 10vh;
+  background-color: #09334f;
+  border-radius: 8px;
+}
+
+.user-choices button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80vw;
+  height: 10vh;
+  text-align: center;
+  background-color: transparent;
+  /* Transparent to inherit container background */
+  color: white;
+}
+
+.user-choices button:hover {
+  background-color: #698a9f7c;
 }
