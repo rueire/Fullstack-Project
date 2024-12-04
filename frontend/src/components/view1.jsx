@@ -7,6 +7,7 @@ export default function FetchWords() {
     const [userInput, setUserInput] = useState(""); // Tracks user input
     const [resultColors, setResultColors] = useState([]);
 
+    //check if answers are correct
     const CheckAnswers = () => {
         const results = {};
         fetchedWords.forEach((word) => {
@@ -20,14 +21,25 @@ export default function FetchWords() {
             }
         })
         setResultColors(results);
-    }
+    };
+
+    const ShuffleWords = (array) => {
+        //start from the end to avoid [0]
+        //Fisher-Yates Shuffle Algorithm
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    };
 
 
     useEffect(() => {
         fetch("http://localhost:3000/api")
             .then((response) => response.json())
             .then((data) => {
-                setFetchedWords(data)
+                const shuffledWords = ShuffleWords(data);
+                setFetchedWords(shuffledWords)
             })
             .catch((error) => {
                 console.error("Error fetching words:", error);
@@ -37,6 +49,7 @@ export default function FetchWords() {
     // Handle input change for each Finnish word
     const handleChange = (id, value) => {
         setUserInput({
+            //Spreads the current userInput object to preserve all the existing key-value pairs
             ...userInput,
             [id]: value, // Update the input value for the specific word ID
         });
