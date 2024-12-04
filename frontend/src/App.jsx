@@ -7,10 +7,9 @@ import ButtonLink from './components/Buttonlink';
 function App() {
 
   function HomeView() {
-
     return<>
     <form className='main-form'>
-      <h1>Home</h1>
+      <h1>Language Learning Application</h1>
       <div className='home-buttons'>
           <ButtonLink to="/user">User Page</ButtonLink>
           {/* <button id='admin'>Admin Material</button> */}
