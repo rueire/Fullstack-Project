@@ -49,3 +49,15 @@ input {
   padding: 5px;
   width: inherit;
 }
+
+/* colors for wrong/correct answers*/
+.correct {
+  background-color: #d4edda;
+
+  color: #008c21;
+}
+
+.wrong {
+  background-color: #f8d7da;
+  color: #7e000f;
+}

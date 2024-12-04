@@ -5,6 +5,22 @@ export default function FetchWords() {
 
     const [fetchedWords, setFetchedWords] = useState([]); // To store fetched words
     const [userInput, setUserInput] = useState(""); // Tracks user input
+    const [resultColors, setResultColors] = useState([]);
+
+    const CheckAnswers = () => {
+        const results = {};
+        fetchedWords.forEach((word) => {
+            if (userInput[word.id].toLowerCase() === word.finn_word.toLowerCase()) {
+                console.log("Word is Correct!")
+                results[word.id] = 'correct';
+            }
+            else {
+                console.log("Word is Incorrect!")
+                results[word.id] = 'wrong';
+            }
+        })
+        setResultColors(results);
+    }
 
 
     useEffect(() => {
@@ -42,7 +58,9 @@ export default function FetchWords() {
                     <tbody>
                         {fetchedWords.map((word) => {
                             return(
-                                <tr key={word.id}> {/* ai help */}
+                                <tr key={word.id}
+                                    className={resultColors[word.id]} // Apply dynamic class
+                                > {/* ai help */}
                                     <td>{word.eng_word}</td>
                                     <td> <input
                                         type="text"
@@ -54,6 +72,9 @@ export default function FetchWords() {
                         })}
                     </tbody>
                 </table>
+                <div className="submit_btn">
+                    <button onClick={CheckAnswers}>Check Answers</button>
+                </div>
             </div>
         </div>
     </>)
