@@ -3,7 +3,6 @@ import FetchWords from './components/FetchWords';
 import './App.css'; 
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import ButtonLink from './components/Buttonlink';
-import { useEffect } from 'react';
 
 function App() {
 
@@ -25,7 +24,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeView />} />
           <Route path="/user" element={<UserView />} />
-          <Route path="/engfinn" element={<FetchWords />} />
+          <Route path="/engfinn" element={<FetchWords mode='engfinn' />} />
+          <Route path="/finneng" element={<FetchWords mode='finneng'/>} />
           <Route path="*" element={<h1>Do not do that!</h1>} />
         </Routes>
       </div>
