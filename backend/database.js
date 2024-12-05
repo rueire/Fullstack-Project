@@ -34,6 +34,11 @@ db.serialize(() => {
         ['mouse', 'hiiri'],
         ['desert', 'aavikko'],
         ['book', 'kirja'],
+        ['oven', 'uuni'],
+        ['shirt', 'paita'],
+        ['paper', 'paperi'],
+        ['tree', 'puu'],
+        ['chocolate', 'suklaa'],
         ['no', 'ei']
     ];
 
