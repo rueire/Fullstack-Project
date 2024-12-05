@@ -141,20 +141,21 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 30px;
   width: 80vw;
   height: 10vh;
-  background-color: #5b91b6;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .user-choices button {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   justify-content: center;
   width: 80vw;
   height: 10vh;
   text-align: center;
-  background-color: transparent;
+  background-color: #191551;
   /* Transparent to inherit container background */
   color: white;
 }
