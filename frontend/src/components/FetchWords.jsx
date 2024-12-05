@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react";
 
-
-export default function FetchWords() {
+export default function FetchWords({mode}) {
 
     const [fetchedWords, setFetchedWords] = useState([]); // To store fetched words
     const [userInput, setUserInput] = useState(""); // Tracks user input
     const [resultColors, setResultColors] = useState([]);
     const [score, setScore] = useState(0);
 
+    const isFinnishToEnglish = mode === "finneng"; // Determine mode based on prop
+
+
     //check if answers are correct
     const CheckAnswers = () => {
         let newScore = 0;
         const results = {};
         fetchedWords.forEach((word) => {
-            if (userInput[word.id].toLowerCase() === word.finn_word.toLowerCase()) {
+            //if if finnish, correct answer is in english
+            const answer = isFinnishToEnglish ? word.eng_word : word.finn_word;
+            if (userInput[word.id].toLowerCase() === answer.toLowerCase()) {
                 console.log("Word is Correct!")
                 results[word.id] = 'correct';
                 newScore += 2;
@@ -61,15 +65,15 @@ export default function FetchWords() {
 
     return (<>
         <div className='appTitle'>
-            <h1>Eng-Finn App</h1>
+            <h1>{isFinnishToEnglish ? 'Finnish - English':'English-Finnish'}</h1>
         </div>
         <div className='outerContainer'>
             <div className="wordTable">
                 <table>
                     <thead>
                         <tr>
-                            <th>English</th>
-                            <th>Finnish</th>
+                            <th>{isFinnishToEnglish ? 'Finnish' : 'English'}</th>
+                            <th>{isFinnishToEnglish ? 'English' : 'Finnish'}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,8 +81,8 @@ export default function FetchWords() {
                             return(
                                 <tr key={word.id}
                                     className={resultColors[word.id]} // Apply dynamic class
-                                > {/* ai help */}
-                                    <td>{word.eng_word}</td>
+                                    >
+                                    <td>{isFinnishToEnglish ? word.finn_word : word.eng_word}</td>
                                     <td> <input
                                         type="text"
                                         value={userInput[word.id] || ""} // Show the input value for this word
