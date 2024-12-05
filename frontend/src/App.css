@@ -1,6 +1,7 @@
 /* Global Styling */
 body,
 html {
+  background-color: #a2c1d5;
   width: 100vw;
   height: 100%;
   margin: 0;
@@ -65,13 +66,21 @@ input {
   color: #7e000f;
 }
 
+.submit-btn {
+  margin: 30px;
+}
+
+.scores p {
+  font-size: larger;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 /*-----HomeView-----*/
 
 .main-form {
   width: 100vw;
-  height: 100vh;
-  background-color: #09334f;
-  color: #ddd;
+  height: 100%;
+  color: #191551;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,9 +127,10 @@ input {
   align-items: center;
   justify-content: center;
   margin: 0;
+  left: 30%;
+  right: 30%;
   top: 30px;
-  left: 50%;
-  right: 50%;
+  color: #18445b;
   text-align: center;
   position: absolute;
   font-family: cursive;
@@ -133,7 +143,7 @@ input {
   justify-content: center;
   width: 80vw;
   height: 10vh;
-  background-color: #09334f;
+  background-color: #5b91b6;
   border-radius: 8px;
 }
 
@@ -151,4 +161,21 @@ input {
 
 .user-choices button:hover {
   background-color: #698a9f7c;
+}
+
+
+/*---------------------*/
+
+@media only screen and (min-width: 600px) {
+
+  .home-buttons {
+    align-items: flex-end;
+    width: 50vw;
+  }
+
+  .home-buttons button {
+    text-align: center;
+    width: 50vw;
+  }
+
 }
