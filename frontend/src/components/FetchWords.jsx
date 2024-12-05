@@ -6,14 +6,17 @@ export default function FetchWords() {
     const [fetchedWords, setFetchedWords] = useState([]); // To store fetched words
     const [userInput, setUserInput] = useState(""); // Tracks user input
     const [resultColors, setResultColors] = useState([]);
+    const [score, setScore] = useState(0);
 
     //check if answers are correct
     const CheckAnswers = () => {
+        let newScore = 0;
         const results = {};
         fetchedWords.forEach((word) => {
             if (userInput[word.id].toLowerCase() === word.finn_word.toLowerCase()) {
                 console.log("Word is Correct!")
                 results[word.id] = 'correct';
+                newScore += 2;
             }
             else {
                 console.log("Word is Incorrect!")
@@ -21,6 +24,7 @@ export default function FetchWords() {
             }
         })
         setResultColors(results);
+        setScore(newScore);
     };
 
     const ShuffleWords = (array) => {
@@ -30,7 +34,7 @@ export default function FetchWords() {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
-        return array;
+        return array.slice(0,5); //take first 5 results
     };
 
 
@@ -85,8 +89,11 @@ export default function FetchWords() {
                         })}
                     </tbody>
                 </table>
-                <div className="submit_btn">
+                <div className="submit-btn">
                     <button onClick={CheckAnswers}>Check Answers</button>
+                </div>
+                <div className="scores">
+                    <p>{score}/10 points</p>
                 </div>
             </div>
         </div>
