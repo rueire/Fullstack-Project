@@ -1,9 +1,10 @@
 import UserView from './components/UserView';
-import FetchWords from './components/FetchWords';
+import FetchWords from './components/Assignment';
 import AdminView from './components/AdminView';
 import './App.css'; 
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import ButtonLink from './components/Buttonlink';
+import Assignment from './components/Assignment';
 
 function App() {
 
@@ -27,8 +28,8 @@ function App() {
           <Route path="/user" element={<UserView />} />
           <Route path="/adminmain" element={<AdminView />} />
           <Route path="/adminedittasks" element={<AdminView />} />
-          <Route path="/engfinn" element={<FetchWords mode='engfinn' />} />
-          <Route path="/finneng" element={<FetchWords mode='finneng'/>} />
+          <Route path="/engfinn" element={<Assignment mode='engfinn' />} />
+          <Route path="/finneng" element={<Assignment mode='finneng'/>} />
           <Route path="*" element={<h1>Wrong Place!</h1>} />
         </Routes>
       </div>
