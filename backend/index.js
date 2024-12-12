@@ -30,9 +30,13 @@ app.get("/api", (req, res) => {
 });
 
 //add words
-app.post("/api/words", (req, res) => {
+app.post("/api", (req, res) => {
     const { eng_word, finn_word } = req.body;
     const insertWords = `INSERT INTO words (eng_word, finn_word) VALUES (?, ?)`;
+
+    if (!eng_word || !finn_word) {
+        return res.status(400).json({ error: "Both English and Finnish words are required." });
+    }
 
     db.run(insertWords, [eng_word, finn_word], (err, result) => {
         if (err) {
@@ -46,12 +50,12 @@ app.post("/api/words", (req, res) => {
 });
 
 //edit words
-app.put("/api/words/:id", (req, res) => {
+app.patch("/api/:id", (req, res) => {
     const { id } = req.params;
     const { eng_word, finn_word } = req.body;
     const editWords = `UPDATE words SET eng_word = ?, finn_word = ? WHERE id = ?`;
 
-    db.run(editWordsWords, [eng_word, finn_word, id], (err) => {
+    db.run(editWords, [eng_word, finn_word, id], (err) => {
         if (err) {
             console.error("Error updating data", err)
             res.status(500).json({ error: "Failed to edit words", details: err.message });
@@ -63,15 +67,22 @@ app.put("/api/words/:id", (req, res) => {
 });
 
 //delete words
-app.delete("/api/words/:id", (req, res) => {
+app.delete("/api/:id", (req, res) => {
     const { id } = req.params;
     const deleteWords = `DELETE FROM words WHERE id = ?`;
+    if (!id) {
+        return res.status(400).json({ error: "ID required!" });
+    }
 
     db.run(deleteWords, [id], (err) => {
         if (err) {
             console.error("Error deleting data", err)
             res.status(500).json({ error: "Failed to delete words", details: err.message });
             return
+        }
+        if (this.changes === 0) {
+            // If no rows were deleted, return a 404 error indicating the word wasn't found
+            return res.status(404).json({ error: "Word not found" });
         }
         res.status(204).send();
         console.log("word pair deleted");
