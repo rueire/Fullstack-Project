@@ -19,7 +19,9 @@ export default function Assignment({mode}) {
         fetchedWords.forEach((word) => {
             //if if finnish, correct answer is in english
             const answer = isFinnishToEnglish ? word.eng_word : word.finn_word;
-            if (userInput[word.id].toLowerCase() === answer.toLowerCase()) {
+            const userAnswer = userInput[word.id]?.toLowerCase() || "";  //considers undefined
+
+            if (userAnswer === answer.toLowerCase()) {
                 console.log("Word is Correct!")
                 results[word.id] = 'correct';
                 newScore += 2;
@@ -47,7 +49,7 @@ export default function Assignment({mode}) {
             [array[i], array[j]] = [array[j], array[i]];
         }
         return array.slice(0,5); //take first 5 results
-    };
+    }
 
     // Handle input change for each Finnish word
     const handleChange = (id, value) => {
