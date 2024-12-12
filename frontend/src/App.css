@@ -9,6 +9,7 @@ html {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  /* position: fixed; */
 }
 
 /*-----FetchWords-----*/
@@ -171,6 +172,91 @@ input {
   background-color: #698a9f7c;
 }
 
+/*---adminview----*/
+nav {
+  background-color: #3d60784f;
+  padding: 20px;
+  height: 90vh;
+
+  border-color: #28273a;
+  border-width: 2px;
+  border-style: double;
+  border-radius: 20px;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: fixed;
+  /* Change to fixed to avoid scrolling issues */
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  /* Adjust vertical centering */
+}
+
+.nav-btn {
+  color: white;
+}
+
+.db-inner {
+  display: flex;
+  flex-direction: column;
+
+  height: 70vh;
+  width: 100%;
+  gap: 30px;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  /*scrolling*/
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.word-pair {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+
+  width: 60vw;
+  height: 10vh;
+  margin: 10px;
+
+  border: 5px;
+  border-radius: 5px;
+  background-color: #28273a57;
+  color: #ffffff;
+}
+
+.word-id {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-end;
+  /* create bigger div, flex-end to place ID well*/
+  width: 50px;
+  height: 50px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  /* align-items: center; */
+  gap: 10px;
+}
+
+.action-buttons button {
+  width: 60px;
+  height: 50px;
+  margin: 10px;
+  font-size: small;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 /*---------------------*/
 
@@ -189,29 +275,5 @@ input {
   #admin-btn {
     display: grid;
     text-align: center;
-  }
-
-  /*---adminview----*/
-  nav {
-    background-color: #3d60784f;
-    padding: 20px;
-    height: 90vh;
-    border-color: #28273a;
-    border-width: 2px;
-    border-style: double;
-    border-radius: 20px;
-    gap: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    position: absolute;
-    left: 10px;
-    transform: translateY(-50%);
-    /* Adjust for vertical centering */
-  }
-
-  .nav-btn {
-    color: white;
   }
 }
