@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ButtonLink from "./Buttonlink";
 import FetchWords from "./FetchWords";
 
 export default function Assignment({mode}) {
@@ -62,7 +63,12 @@ export default function Assignment({mode}) {
 
     return (<>
         <div className='appTitle'>
-            <h1>{isFinnishToEnglish ? 'Finnish - English':'English-Finnish'}</h1>
+            <div>
+                <h1>{isFinnishToEnglish ? 'Finnish - English' : 'English-Finnish'}</h1>
+            </div>
+            <div>
+                <ButtonLink to="/user">Leave Assignment</ButtonLink>
+            </div>
         </div>
         <div className='outerContainer'>
             <div className="wordTable">
