@@ -2,7 +2,7 @@
 November-December 2024
 
 Project to show knowledge of backend development and how to make use of it using React.<br/> 
-Finnish-English learning application
+Finnish-English learning application <br />
 Get information to frontend, give user possibility to do assignment
 
 **Build status:** <br/> 
@@ -61,11 +61,14 @@ Get information to frontend, give user possibility to do assignment
 **How to use?**
 
         App opens up at main view
-        ADMIN is not accessible on smaller screens.        
+        
+        ADMIN is not accessible on smaller screens. 
+        
         on small screen (<600px) only user view is an option
                 -> Two assignment possibilities
                 -> Do assignment to get points for assignment
                 -> Leave button, but no logout (yet?)
+                
         on bigger screens there is possibility to access admin view
                 -> on adminview, there is main view
                 that for now is missing introduction
