@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+//props to keep track of word and closing the pop-up
 export default function EditWords({ currentWord, handleClose}) {
     // const [isEditOpen, setIsEditOpen] = useState(false);
     const [editedWord, setEditedWord] = useState({
@@ -7,22 +8,28 @@ export default function EditWords({ currentWord, handleClose}) {
         finn_word: currentWord?.finn_word||"",
     });
 
+    // Handle input change
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEditedWord((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: value, // Update the state with the new value
         }));
     };
 
+    // Handle submission
     const handleSubmit = async () => {
+        // correct form help from AI
         const { id, eng_word, finn_word } = currentWord;
         try{
             const response = await fetch(`http://localhost:3000/api/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json", 
                 },
-                body: JSON.stringify({eng_word: editedWord.eng_word, finn_word: editedWord.finn_word}),
+                body: JSON.stringify({
+                    eng_word: editedWord.eng_word,
+                     finn_word: editedWord.finn_word
+                }),
             });
 
             if(response.ok) {
@@ -36,6 +43,7 @@ export default function EditWords({ currentWord, handleClose}) {
         }
     };
 
+    // Handle submit words and closing the pop-up
     const handleSubmitAndClose = () => {
         handleSubmit();
         handleClose();
@@ -50,8 +58,8 @@ export default function EditWords({ currentWord, handleClose}) {
                     <input
                         type="text"
                         name="eng_word"
-                        value={editedWord.eng_word}
-                        onChange={handleChange}
+                        value={editedWord.eng_word} //current value
+                        onChange={handleChange} // input change
                     />
                 </div>
                 <div>
@@ -59,8 +67,8 @@ export default function EditWords({ currentWord, handleClose}) {
                     <input
                         type="text"
                         name="finn_word"
-                        value={editedWord.finn_word}
-                        onChange={handleChange}
+                        value={editedWord.finn_word}//current value
+                        onChange={handleChange} // input change
                     />
                 </div>
                 <button onClick={handleSubmitAndClose}>Submit</button>

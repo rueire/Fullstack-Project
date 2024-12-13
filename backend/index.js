@@ -2,21 +2,22 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const cors = require('cors'); // Import the cors package
+const cors = require('cors');
 const db = require("./database")
 const path = require("path");
 const { copyFileSync } = require('fs');
 
+// Enable CORS for the React app
 app.use(cors({
-    origin: 'http://localhost:5173' // Allow only your React app's origin
+    origin: 'http://localhost:5173' // Allow only React app's origin
 }));
 
-app.use(express.json()); // Parses incoming JSON requests
+app.use(express.json()); // Parse incoming JSON requests
 
 // Serve static files from the frontend's dist folder
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-
+// API endpoint to fetch all words
 app.get("/api", (req, res) => {
     const fetchQuery = `SELECT * FROM words`;
     db.all(fetchQuery, (err, result) => {
@@ -29,11 +30,11 @@ app.get("/api", (req, res) => {
     })
 });
 
-//add words
+//API endpoint to add words
 app.post("/api", (req, res) => {
     const { eng_word, finn_word } = req.body;
     const insertWords = `INSERT INTO words (eng_word, finn_word) VALUES (?, ?)`;
-
+    //below AI help to debug mistakes
     if (!eng_word || !finn_word) {
         return res.status(400).json({ error: "Both English and Finnish words are required." });
     }
@@ -49,7 +50,7 @@ app.post("/api", (req, res) => {
     })
 });
 
-//edit words
+//API endpoint to edit words
 app.patch("/api/:id", (req, res) => {
     const { id } = req.params;
     const { eng_word, finn_word } = req.body;
@@ -66,10 +67,11 @@ app.patch("/api/:id", (req, res) => {
     })
 });
 
-//delete words
+//API endpoint to delete words
 app.delete("/api/:id", (req, res) => {
     const { id } = req.params;
     const deleteWords = `DELETE FROM words WHERE id = ?`;
+    //below AI help to debug mistakes
     if (!id) {
         return res.status(400).json({ error: "ID required!" });
     }
@@ -80,6 +82,7 @@ app.delete("/api/:id", (req, res) => {
             res.status(500).json({ error: "Failed to delete words", details: err.message });
             return
         }
+        //below AI help to debug mistakes
         if (this.changes === 0) {
             // If no rows were deleted, return a 404 error indicating the word wasn't found
             return res.status(404).json({ error: "Word not found" });
@@ -88,11 +91,12 @@ app.delete("/api/:id", (req, res) => {
         console.log("word pair deleted");
     })
 });
-
+// Start the server and listen on the defined port
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 });
 
+//Close connection
 process.on("SIGINT", () => {
     db.close();
     console.log("Database connection closed."); //debug

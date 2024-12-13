@@ -1,4 +1,4 @@
-
+// UseLocation by AI
 import {Link, useLocation } from "react-router-dom"
 import FetchWords from "./FetchWords";
 import { useState } from "react";
@@ -9,33 +9,31 @@ import DeleteWords from "./DeleteWords";
 
 export default function AdminView() {
     const fetchedWords = FetchWords();
-    const location = useLocation(); // Get the current location (route)
+    const location = useLocation(); // Get the current location (route) 
     const [currentWord, setCurrentWord] = useState(null);
-
 
     const [isEditOpen, setIsEditOpen] = useState(false);
     const [isAddOpen, setIsAddOpen] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [wordToDelete, setWordToDelete] = useState(null);
 
+    // Open the AddWords pop-up
     const handleAdd = () => {
-        setIsAddOpen(true); // Open the AddWords modal
+        setIsAddOpen(true);
     };
-
+    // Handle opening the edit pop-up
     const HandleEdit = (word) => {
         setCurrentWord(word);
         setIsEditOpen(true);
     }
-    
+    // Close all pop-ups
     const handleClose = () => {
-        //close anything and everything
         setIsEditOpen(false);
         setIsAddOpen(false);
         setIsDeleteOpen(false);
     };
-    
+    // Handle opening the delete pop-up
     const HandleDelete = (wordID) => {
-        //debugging here
         if (wordID) {
             setIsDeleteOpen(true);
             setWordToDelete(wordID);
@@ -60,7 +58,7 @@ export default function AdminView() {
                     <p>Add some introduction</p>
                     </div>
                 )}
-
+                {/* location usage help by AI*/}
                 {location.pathname === '/adminedittasks' && (
                 <div className="db-wrapper">
                     <h1>Edit Assignment Words</h1>
@@ -70,38 +68,39 @@ export default function AdminView() {
                             onClick={handleAdd}>
                             Add New Word Pair
                         </button>
+                        {/* Add Pop-Up*/}
                         {isAddOpen && (
                             <AddWords handleClose={handleClose} />
                         )}
+                        {/*AI help to figure this out
+                        => doesnt work without loading words bcause fetch is asyncronous */}
                         {fetchedWords && fetchedWords.length === 0 ? ( // Handle loading state
                             <p>Loading words...</p>
                         ) : (
                             <ul>
-                                    {fetchedWords && fetchedWords.map((word) => (
-                                    <div key={word.id} className="word-pair">
-                                        <div className="word-id">
-                                            <strong>{word.id}</strong>
-                                        </div>
-
-                                        <div className="eng-word">
-                                            <span>{word.eng_word}</span>
-                                        </div>
-
-                                        <div className="finn-word">
-                                            <span>{word.finn_word}</span>
-                                        </div>
-
-                                        <div className="action-buttons">
-                                            <button onClick={() => HandleEdit(word)}>Edit</button>
-                                            <button onClick={() => HandleDelete(word.id)}>Delete</button>
-                                        </div>
+                                {fetchedWords && fetchedWords.map((word) => (
+                                <div key={word.id} className="word-pair">
+                                    <div className="word-id">
+                                        <strong>{word.id}</strong>
                                     </div>
-                                ))}
-                            </ul>
+                                    <div className="eng-word">
+                                        <span>{word.eng_word}</span>
+                                    </div>
+                                    <div className="finn-word">
+                                        <span>{word.finn_word}</span>
+                                    </div>
+                                    <div className="action-buttons">
+                                        <button onClick={() => HandleEdit(word)}>Edit</button>
+                                        <button onClick={() => HandleDelete(word.id)}>Delete</button>
+                                    </div>
+                                </div>
+                            ))}
+                        </ul>
                         )}
                     </div>
                 </div>
                 )}
+            {/* Edit and Delete Pop-Up*/}
             {isEditOpen && (
                 <div className="popup">
                     {<EditWords currentWord={currentWord}

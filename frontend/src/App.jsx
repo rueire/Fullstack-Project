@@ -1,5 +1,4 @@
 import UserView from './components/UserView';
-import FetchWords from './components/Assignment';
 import AdminView from './components/AdminView';
 import './App.css'; 
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
@@ -8,6 +7,7 @@ import Assignment from './components/Assignment';
 
 function App() {
 
+  // HomeView component to render the home page
   function HomeView() {
     return<>
       <div className='main-form'>
@@ -21,9 +21,9 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter> {/*BrowserRouter to enable routing */}
       <div>
-        <Routes>
+        <Routes> {/* Define the routes for the application */}
           <Route path="/" element={<HomeView />} />
           <Route path="/user" element={<UserView />} />
           <Route path="/adminmain" element={<AdminView />} />

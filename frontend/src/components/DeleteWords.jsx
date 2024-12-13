@@ -1,8 +1,8 @@
-// import { useState } from "react";
 
+//debugging help by AI
 export default function DeleteWords({ wordID, handleClose }) {
-    // console.log('Deleting word with ID:', wordID);  // Log the ID to ensure it’s correct
 
+    // Function to delete a word
     const Delete = async () => {
         try {
             const response = await fetch(`http://localhost:3000/api/${wordID}`, {
@@ -11,15 +11,13 @@ export default function DeleteWords({ wordID, handleClose }) {
                     'Content-Type': 'application/json',
                 },
             });
-
-            console.log("1 ok till here")
             console.log("Response status:", response.status);  // Debug the response status
 
 
             if (response.ok) {
                 const DeletedTask = await response.json();
                 console.log('Deleted task:', DeletedTask);
-                handleClose();
+                handleClose(); // Close the pop-up
                 
             } else {
                 console.error('Error: response not OK');
@@ -28,7 +26,7 @@ export default function DeleteWords({ wordID, handleClose }) {
             console.log("error caught: ", error)
         }
     }
-
+    // Function to submit info and close the pop-up
     const handleSubmitAndClose = () => {
         Delete();
         handleClose();

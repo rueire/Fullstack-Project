@@ -1,17 +1,18 @@
 import { useState } from "react";
 
-export default function AddWords({handleClose }) {
+export default function AddWords({ handleClose }) {
     const [newWord, setNewWord] = useState({ eng_word: "", finn_word: "" });
 
+    // Handle input change
+    //AI help, prev was unknown
     const handleChange = (e) => {
         const { name, value } = e.target;
-        // console.log("Input change detected:", name, value);
         setNewWord((prev) => ({
             ...prev,
             [name]: value,
         }));
     };
-
+    // Handle submission
     const handleSubmit = async () => {
         try {
             const response = await fetch(`http://localhost:3000/api/`, {
@@ -20,6 +21,7 @@ export default function AddWords({handleClose }) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
+                    //AI help to figure out form and usage of properties
                     eng_word: newWord.eng_word,
                     finn_word: newWord.finn_word,
                 }),
@@ -36,6 +38,8 @@ export default function AddWords({handleClose }) {
         }
     };
 
+    // Handle submission of info and closing of the pop-up
+    // AI idea to make sure OnClick works as intented
     const handleSubmitAndClose = () => {
         handleSubmit();
         handleClose();

@@ -28,6 +28,8 @@ db.serialize(() => {
     })
     const stmt = db.prepare(insertWords)
 
+    // Array of word pairs to be inserted into the 'words' table
+    //more can be added, deleted, edited via frontend
     const words = [
         ['plant', 'kasvi'],
         ['cat', 'kissa'],
@@ -42,7 +44,8 @@ db.serialize(() => {
         ['no', 'ei']
     ];
 
-    //add words to database
+    //insert words to 'words'
+    // AI help to figure out how to iterate words
     words.forEach(([english, finnish]) => {
         stmt.run(english, finnish, (err) => {
             if (err) {
@@ -53,6 +56,6 @@ db.serialize(() => {
 
     stmt.finalize();
     console.log("Words added.");
-})
+});
 
 module.exports = db;
