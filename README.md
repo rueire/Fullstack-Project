@@ -13,15 +13,15 @@ Get information to frontend, give user possibility to do assignment
             *Backend:* Node.js <br />
             *Frontend:* React
 
-**Code Example:** <br/> 
+**Code Example:** <br/>
 
-            export default function FetchWords() {
     const [fetchedWords, setFetchedWords] = useState([]);
+
     useEffect(() => {
         fetch("http://localhost:3000/api")
             .then((response) => response.json())
             .then((data) => {
-                setFetchedWords(data)
+                setFetchedWords(data) 
             })
             .catch((error) => {
                 console.error("Error fetching words:", error);
@@ -29,8 +29,7 @@ Get information to frontend, give user possibility to do assignment
     }, []);
 
     return fetchedWords;
-    }
-    
+
 
 **Installation:** <br/> 
             I'll figure this out later (im still missing docker etc)
