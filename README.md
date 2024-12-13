@@ -10,7 +10,7 @@ Get information to frontend, give user possibility to do assignment
 **Code Style:** <br/> 
             This project uses ESLint <br/> <br/> 
 **Built with:** <br/> 
-            *Backend:* Node.js
+            *Backend:* Node.js <br />
             *Frontend:* React
 
 **Code Example:** <br/> 
