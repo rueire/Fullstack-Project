@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import ButtonLink from "./Buttonlink";
-import FetchWords from "./FetchWords";
+import { resolvePath } from "react-router-dom";
+// import FetchWords from "./FetchWords";
 
 // props usage figrured out with examples from AI
-export default function Assignment({mode}) {
+export default function Assignment({ mode }) {
 
-    const fetchedWords= FetchWords(); // To store fetched words, AI help to use correctly
+    // const fetchedWords= FetchWords(); // To store fetched words, AI help to use correctly
+    const [fetchedWords, setFetchedWords] = useState([]);
     const [shuffleWords, setShuffleWords] = useState([]);
     const [userInput, setUserInput] = useState(""); // Tracks user input
     // color here + css AI example used
@@ -15,9 +17,31 @@ export default function Assignment({mode}) {
     const isFinnishToEnglish = mode === "finneng"; // Determine mode based on prop
 
 
+    useEffect(() => {
+        const UseFetch = async () => {
+            try {
+                const response = await fetch("/api")
+
+                if (response.ok) {
+                    const data = await response.json();
+                    // Shuffle the words once fetched
+                    console.log("fetched: ", data)
+                    const shuffled = Shuffle([...data]); // Copy and shuffle the fetched words
+
+                    setFetchedWords(data);
+                    setShuffleWords(shuffled);
+                    console.log("shuffled: ", shuffled)
+                }
+            } catch (error) {
+                console.error("Error fetching words:", error);
+            }
+        }
+        UseFetch();
+    }, []); // Re-run shuffle when fetchedWords change
+
+
     //check if answers are correct
     //Set Score and Colors
-
     const CheckAnswers = () => {
         let newScore = 0;
         const results = {};
@@ -42,12 +66,6 @@ export default function Assignment({mode}) {
         setScore(newScore);
     };
 
-    // Shuffle the words once they are fetched
-    useEffect(() => {
-        const shuffled = Shuffle([...fetchedWords]); // Copy and shuffle the array
-        setShuffleWords(shuffled);
-    }, [fetchedWords]); // Re-run shuffle when fetchedWords change
-
     //Shuffle starts from the end to avoid [0]
     //Fisher-Yates Shuffle Algorithm, AI help
     const Shuffle = (array) => {
@@ -55,7 +73,7 @@ export default function Assignment({mode}) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
-        return array.slice(0,5); //return first 5 results
+        return array.slice(0, 5); //return first 5 results
     }
 
     // Handle input change for each word
@@ -85,10 +103,10 @@ export default function Assignment({mode}) {
                     </thead>
                     <tbody>
                         {shuffleWords.map((word) => {
-                            return(
+                            return (
                                 <tr key={word.id}
                                     className={resultColors[word.id]} // Apply dynamic class (:colors, AI help)
-                                    >
+                                >
                                     <td>{isFinnishToEnglish ? word.finn_word : word.eng_word}</td>
                                     <td> <input
                                         type="text"
