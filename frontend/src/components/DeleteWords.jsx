@@ -1,6 +1,6 @@
 
 //debugging help by AI
-export default function DeleteWords({ wordID, handleClose }) {
+export default function DeleteWords({ wordID, handleClose, refresh}) {
 
     // Function to delete a word
     const Delete = async () => {
@@ -16,6 +16,7 @@ export default function DeleteWords({ wordID, handleClose }) {
 
             if (response.status === 204) {
                 console.log('Delete successful');
+                refresh();
                 handleClose(); // Close the pop-up
                 
             } else {
