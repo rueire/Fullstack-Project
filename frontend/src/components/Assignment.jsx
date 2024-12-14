@@ -79,8 +79,8 @@ export default function Assignment({mode}) {
                 <table>
                     <thead>
                         <tr>
-                            <th>{isFinnishToEnglish ? 'Finnish' : 'English'}</th>
-                            <th>{isFinnishToEnglish ? 'English' : 'Finnish'}</th>
+                            <th>{isFinnishToEnglish ? 'FINNISH' : 'ENGLISH'}</th>
+                            <th>{isFinnishToEnglish ? 'ENGLISH' : 'FINNISH'}</th>
                         </tr>
                     </thead>
                     <tbody>
