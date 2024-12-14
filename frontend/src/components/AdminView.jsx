@@ -1,7 +1,6 @@
 // UseLocation by AI
 import {Link, useLocation } from "react-router-dom"
-import FetchWords from "./FetchWords";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditWords from "./EditWords";
 import AddWords from "./AddWords";
 import DeleteWords from "./DeleteWords";
@@ -12,7 +11,7 @@ import DeleteWords from "./DeleteWords";
 
 
 export default function AdminView() {
-    const fetchedWords = FetchWords();
+    const [fetchedWords, setFetchedWords] = useState([]);
     const location = useLocation(); // Get the current location (route) 
     const [currentWord, setCurrentWord] = useState(null);
 
@@ -20,6 +19,34 @@ export default function AdminView() {
     const [isAddOpen, setIsAddOpen] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [wordToDelete, setWordToDelete] = useState(null);
+
+    //AI help to keep word list refreshed
+    const FetchWords = async() => {
+        try {
+            const response = await fetch("http://localhost:3000/api")
+            if (response.ok) {
+                const data =  await response.json();
+                setFetchedWords(data)
+            }
+        } catch (error) {
+            console.error("caught: ", error)
+        }
+    }
+        useEffect(() => {
+            if (window.location.pathname.includes("/adminedittasks") ||
+                window.location.pathname.includes("/adminmain") ) {
+                document.body.style.position = "fixed";
+            }
+            else {
+                document.body.style.position = "";
+            }
+            FetchWords();
+        }, []);
+
+    // Refresh the list of words after action (add, delete, or edit)
+    const refreshWords = () => {
+        FetchWords();
+    };
 
     // Open the AddWords pop-up
     const handleAdd = () => {
@@ -51,31 +78,34 @@ export default function AdminView() {
     return (
             <div>
                 <nav className="admin-nav">
-                <div className="admin-img"> <img src="" alt="admin image" /></div>
-                    <div><Link to="/adminmain" className="nav_btn">Main Page</Link></div>
+                    <div className="admin-btn-container">
+                    <div><Link to="/adminmain" className="nav-btn">Main Page</Link></div>
                     <div><Link to="/adminedittasks" className="nav-btn">Tasks</Link></div>
-                <div><Link to="/" className="nav-btn">Leave</Link></div>
+                    <div><Link to="/" className="nav-btn">Leave</Link></div>
+                    </div>
                 </nav>
                 {location.pathname === '/adminmain' && (
                     <div>
-                    <h1>Title Here</h1>
-                    <p>Add some introduction</p>
+                    <h1>Admin</h1>
+                    <p>Add, Delete or Edit words needed <br />
+                    in assingment in userview</p>
                     </div>
                 )}
                 {/* location usage help by AI*/}
                 {location.pathname === '/adminedittasks' && (
                 <div className="db-wrapper">
-                    <h1>Edit Assignment Words</h1>
+                    <h2>Edit Assignment Words</h2>
+                    <button
+                        className="add-word-pair-btn"
+                        onClick={handleAdd}>
+                        Add New Word Pair
+                    </button>
+                    {/* Add Pop-Up*/}
+                    {isAddOpen && (
+                        <AddWords handleClose={handleClose}
+                            refresh={refreshWords} />
+                    )}
                     <div className="db-inner">
-                        <button
-                            className="add-word-pair-btn"
-                            onClick={handleAdd}>
-                            Add New Word Pair
-                        </button>
-                        {/* Add Pop-Up*/}
-                        {isAddOpen && (
-                            <AddWords handleClose={handleClose} />
-                        )}
                         {/*AI help to figure this out
                         => doesnt work without loading words bcause fetch is asyncronous */}
                         {fetchedWords && fetchedWords.length === 0 ? ( // Handle loading state
@@ -108,12 +138,15 @@ export default function AdminView() {
             {isEditOpen && (
                 <div className="popup">
                     {<EditWords currentWord={currentWord}
-                    handleClose={handleClose}/>}
+                        handleClose={handleClose}
+                        refresh={refreshWords}/>}
                 </div>
             )}
             {isDeleteOpen && (
                 <div className="popup">
-                    {<DeleteWords wordID={wordToDelete} handleClose={handleClose} />}
+                    {<DeleteWords wordID={wordToDelete}
+                    handleClose={handleClose}
+                        refresh={refreshWords}/>}
                 </div>
             )}
             </div>
