@@ -4,8 +4,22 @@ import './App.css';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import ButtonLink from './components/Buttonlink';
 import Assignment from './components/Assignment';
+import { useEffect } from 'react';
 
 function App() {
+
+  useEffect(() => {
+    const isAdminView = window.location.pathname.includes("/adminedittasks") ||
+      window.location.pathname.includes("/adminmain");
+
+    if (isAdminView) {
+      document.body.style.position = "fixed";
+      document.body.style.minHeight = "100vh";
+    }
+    else {
+      document.body.style.position = "";
+    }
+  })
 
   // HomeView component to render the home page
   function HomeView() {
