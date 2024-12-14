@@ -23,7 +23,7 @@ export default function AdminView() {
     //AI help to keep word list refreshed
     const FetchWords = async() => {
         try {
-            const response = await fetch("http://localhost:3000/api")
+            const response = await fetch("/api")
             if (response.ok) {
                 const data =  await response.json();
                 setFetchedWords(data)
