@@ -5,11 +5,6 @@ import EditWords from "./EditWords";
 import AddWords from "./AddWords";
 import DeleteWords from "./DeleteWords";
 
-//LATER!
-//Add, Delete, Edit to be updated with button press
-//rn requires to leave adminview completely to update
-
-
 export default function AdminView() {
     const [fetchedWords, setFetchedWords] = useState([]);
     const location = useLocation(); // Get the current location (route) 
