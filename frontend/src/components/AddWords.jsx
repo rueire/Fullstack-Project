@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function AddWords({ handleClose }) {
+export default function AddWords({ handleClose, refresh}) {
     const [newWord, setNewWord] = useState({ eng_word: "", finn_word: "" });
 
     // Handle input change
@@ -30,6 +30,7 @@ export default function AddWords({ handleClose }) {
             if (response.ok) {
                 const addedWord = await response.json();
                 console.log("insert ok: ", addedWord)
+                refresh();
                 handleClose();
             }
             else {
