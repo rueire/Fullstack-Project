@@ -14,9 +14,8 @@ export default function DeleteWords({ wordID, handleClose }) {
             console.log("Response status:", response.status);  // Debug the response status
 
 
-            if (response.ok) {
-                const DeletedTask = await response.json();
-                console.log('Deleted task:', DeletedTask);
+            if (response.status === 204) {
+                console.log('Delete successful');
                 handleClose(); // Close the pop-up
                 
             } else {
