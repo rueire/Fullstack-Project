@@ -9,7 +9,8 @@ const { copyFileSync } = require('fs');
 
 // Enable CORS for the React app
 app.use(cors({
-    origin: 'http://localhost:5173' // Allow only React app's origin
+    origin: 'http://localhost:5173', // Allow only React app's origin
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'] //allowed methods
 }));
 
 app.use(express.json()); // Parse incoming JSON requests
@@ -39,14 +40,24 @@ app.post("/api", (req, res) => {
         return res.status(400).json({ error: "Both English and Finnish words are required." });
     }
 
-    db.run(insertWords, [eng_word, finn_word], (err, result) => {
+    // no =>, this.lastID wont work
+    db.run(insertWords, [eng_word, finn_word], function (err) {
         if (err) {
             console.error("Error inserting data", err)
             res.status(500).json({ error: "Failed to insert words", details: err.message });
             return;
         }
-        res.json(result);
-        console.log("new pair added")
+        else {
+            // Use `this.lastID` to get the ID of the newly inserted row
+            //sqlite does not return result obj (err, result)
+            res.json({
+                id: this.lastID,
+                eng_word,
+                finn_word,
+            });
+
+            console.log("new pair added")
+        }
     })
 });
 
@@ -91,6 +102,9 @@ app.delete("/api/:id", (req, res) => {
         console.log("word pair deleted");
     })
 });
+
+
+
 // Start the server and listen on the defined port
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
