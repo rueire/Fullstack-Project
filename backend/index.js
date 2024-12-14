@@ -27,6 +27,7 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
     const { eng_word, finn_word } = req.body;
     const insertWords = `INSERT INTO words (eng_word, finn_word) VALUES (?, ?)`;
+    const wordRegex = /^[a-zA-ZäöåÄÖÅ\s\-]+$/;
     //below AI help to debug mistakes
     if (!eng_word || !finn_word) {
         return res.status(400).json({ error: "Both English and Finnish words are required." });
@@ -40,6 +41,10 @@ app.post("/", (req, res) => {
         }
         if (word) {
             return res.status(400).json({ error: "Word/s already exists" });
+        }
+        if (!wordRegex.test(finn_word) || !wordRegex.test(eng_word)) {
+            res.status(400).json({ error: "Word needs to alphabetical" });
+            return;
         }
         // no =>, this.lastID wont work
         db.run(insertWords, [eng_word, finn_word], function (err) {
@@ -64,10 +69,12 @@ app.post("/", (req, res) => {
 });
 
 //API endpoint to edit words
+//AI help with wordRegex
 app.patch("/:id", (req, res) => {
     const { id } = req.params;
     const { eng_word, finn_word } = req.body;
     const editWords = `UPDATE words SET eng_word = ?, finn_word = ? WHERE id = ?`;
+    const wordRegex = /^[a-zA-ZäöåÄÖÅ\s\-]+$/;
 
     //AI help to figure out how to do validation
     const checkEngWords = `SELECT * FROM words 
@@ -83,7 +90,12 @@ app.patch("/:id", (req, res) => {
         }
         if (word) {
             // If the word pair already exists, error
-            return res.status(400).json({ error: "Word already exists" });
+            res.status(400).json({ error: "Word already exists" });
+            return;
+        }
+        if (!wordRegex.test(eng_word)) {
+            res.status(400).json({ error: "Word needs to alphabetical" });
+            return;
         }
         //check finnish words
         db.get(checkFinnWords, [finn_word, id], (err, result) => {
@@ -94,6 +106,10 @@ app.patch("/:id", (req, res) => {
             if (result) {
                 // If the word pair already exists, error
                 return res.status(400).json({ error: "Word already exists" });
+            }
+            if (!wordRegex.test(finn_word)) {
+                res.status(400).json({ error: "Word needs to alphabetical" });
+                return;
             }
         })
         //edit the word-pair
