@@ -11,8 +11,10 @@
     "start-frontend": "npm run dev --workspace=frontend",
     "start-backend": "npm start --workspace=backend"
   },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
   "dependencies": {
-    "cors": "^2.8.5",
     "express": "^4.21.1",
     "sqlite3": "^5.1.7"
   }
