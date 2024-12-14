@@ -2,16 +2,8 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const cors = require('cors');
 const db = require("./database")
 const path = require("path");
-const { copyFileSync } = require('fs');
-
-// Enable CORS for the React app
-app.use(cors({
-    origin: 'http://localhost:5173', // Allow only React app's origin
-    methods: ['GET', 'POST', 'PATCH', 'DELETE'] //allowed methods
-}));
 
 app.use(express.json()); // Parse incoming JSON requests
 
@@ -19,7 +11,7 @@ app.use(express.json()); // Parse incoming JSON requests
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 // API endpoint to fetch all words
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
     const fetchQuery = `SELECT * FROM words`;
     db.all(fetchQuery, (err, result) => {
         if (err) {
@@ -32,7 +24,7 @@ app.get("/api", (req, res) => {
 });
 
 //API endpoint to add words
-app.post("/api", (req, res) => {
+app.post("/", (req, res) => {
     const { eng_word, finn_word } = req.body;
     const insertWords = `INSERT INTO words (eng_word, finn_word) VALUES (?, ?)`;
     //below AI help to debug mistakes
@@ -72,24 +64,39 @@ app.post("/api", (req, res) => {
 });
 
 //API endpoint to edit words
-app.patch("/api/:id", (req, res) => {
+app.patch("/:id", (req, res) => {
     const { id } = req.params;
     const { eng_word, finn_word } = req.body;
     const editWords = `UPDATE words SET eng_word = ?, finn_word = ? WHERE id = ?`;
 
     //AI help to figure out how to do validation
-    const checkWords = `SELECT * FROM words 
-        WHERE eng_word = ? AND finn_word = ? OR id != ?`;
+    const checkEngWords = `SELECT * FROM words 
+        WHERE eng_word = ? AND id != ?`;
+    const checkFinnWords = `SELECT * FROM words 
+        WHERE finn_word = ? AND id != ?`;
 
-    db.get(checkWords, [eng_word, finn_word, id], (err, word) => {
+    //check english words
+    db.get(checkEngWords, [eng_word, id], (err, word) => {
         if (err) {
             console.error("Error inserting data", err);
             return;
         }
         if (word) {
             // If the word pair already exists, error
-            return res.status(400).json({ error: "Word/s already exists" });
+            return res.status(400).json({ error: "Word already exists" });
         }
+        //check finnish words
+        db.get(checkFinnWords, [finn_word, id], (err, result) => {
+            if (err) {
+                console.error("Error inserting data", err);
+                return;
+            }
+            if (result) {
+                // If the word pair already exists, error
+                return res.status(400).json({ error: "Word already exists" });
+            }
+        })
+        //edit the word-pair
         db.run(editWords, [eng_word, finn_word, id], (err) => {
             if (err) {
                 console.error("Error updating data", err)
@@ -103,7 +110,7 @@ app.patch("/api/:id", (req, res) => {
 });
 
 //API endpoint to delete words
-app.delete("/api/:id", (req, res) => {
+app.delete("/:id", (req, res) => {
     const { id } = req.params;
     const deleteWords = `DELETE FROM words WHERE id = ?`;
     //below AI help to debug mistakes
