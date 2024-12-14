@@ -5,7 +5,7 @@ export default function DeleteWords({ wordID, handleClose, refresh}) {
     // Function to delete a word
     const Delete = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/${wordID}`, {
+            const response = await fetch(`/api/${wordID}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
