@@ -20,8 +20,8 @@ export default function AddWords({ handleClose }) {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                //AI help to figure out form and usage of properties
                 body: JSON.stringify({
-                    //AI help to figure out form and usage of properties
                     eng_word: newWord.eng_word,
                     finn_word: newWord.finn_word,
                 }),
@@ -30,8 +30,11 @@ export default function AddWords({ handleClose }) {
             if (response.ok) {
                 const addedWord = await response.json();
                 console.log("insert ok: ", addedWord)
-
                 handleClose();
+            }
+            else {
+                //debugging
+                console.log(response.statusText)
             }
         } catch (error) {
             console.error("error caught: ", error)
