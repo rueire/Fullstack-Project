@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 //props to keep track of word and closing the pop-up
-export default function EditWords({ currentWord, handleClose}) {
+export default function EditWords({ currentWord, handleClose, refresh}) {
     // const [isEditOpen, setIsEditOpen] = useState(false);
     const [editedWord, setEditedWord] = useState({
         eng_word: currentWord?.eng_word||"",
@@ -35,7 +35,7 @@ export default function EditWords({ currentWord, handleClose}) {
             if(response.ok) {
                 const updatedWord = await response.json();
                 console.log("Editing ok: ", updatedWord)
-
+                refresh();
                 handleClose();
             }
         }catch (error) {
