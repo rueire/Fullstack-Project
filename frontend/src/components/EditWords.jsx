@@ -22,7 +22,7 @@ export default function EditWords({ currentWord, handleClose, refresh}) {
         // correct form help from AI
         const { id, eng_word, finn_word } = currentWord;
         try{
-            const response = await fetch(`http://localhost:3000/api/${id}`, {
+            const response = await fetch(`/api/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json", 
                 },
