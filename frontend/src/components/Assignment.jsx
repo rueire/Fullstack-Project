@@ -69,9 +69,7 @@ export default function Assignment({mode}) {
 
     return (<>
         <div className='appTitle'>
-            <div>
-                <h1>{isFinnishToEnglish ? 'Finnish - English' : 'English-Finnish'}</h1>
-            </div>
+            <h1>{isFinnishToEnglish ? 'Finnish - English' : 'English - Finnish'}</h1>
             <div>
                 <ButtonLink to="/user">Leave Assignment</ButtonLink>
             </div>
