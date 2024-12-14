@@ -40,14 +40,14 @@ app.post("/api", (req, res) => {
         return res.status(400).json({ error: "Both English and Finnish words are required." });
     }
     const checkWords = `SELECT * FROM words 
-        WHERE eng_word = ? AND finn_word = ?`;
+        WHERE eng_word = ? OR finn_word = ?`;
     db.get(checkWords, [eng_word, finn_word], (err, word) => {
         if (err) {
             console.error("Error fetching data", err)
             return;
         }
         if (word) {
-            return res.status(400).json({ error: "Word pair already exists" });
+            return res.status(400).json({ error: "Word/s already exists" });
         }
         // no =>, this.lastID wont work
         db.run(insertWords, [eng_word, finn_word], function (err) {
@@ -79,7 +79,8 @@ app.patch("/api/:id", (req, res) => {
 
     //AI help to figure out how to do validation
     const checkWords = `SELECT * FROM words 
-        WHERE eng_word = ? AND finn_word = ? AND id != ?`;
+        WHERE eng_word = ? AND finn_word = ? OR id != ?`;
+
     db.get(checkWords, [eng_word, finn_word, id], (err, word) => {
         if (err) {
             console.error("Error inserting data", err);
@@ -87,7 +88,7 @@ app.patch("/api/:id", (req, res) => {
         }
         if (word) {
             // If the word pair already exists, error
-            return res.status(400).json({ error: "Word pair already exists" });
+            return res.status(400).json({ error: "Word/s already exists" });
         }
         db.run(editWords, [eng_word, finn_word, id], (err) => {
             if (err) {
