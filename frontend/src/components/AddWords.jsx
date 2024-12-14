@@ -27,6 +27,11 @@ export default function AddWords({ handleClose, refresh}) {
                 }),
             });
 
+            if (!response.ok) {
+                const wordExists = await response.json();
+                alert(wordExists.error);
+            }
+
             if (response.ok) {
                 const addedWord = await response.json();
                 console.log("insert ok: ", addedWord)
