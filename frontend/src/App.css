@@ -378,19 +378,33 @@ input {
   white-space: normal; */
 }
 
-/*edit view*/
+/*modal/pop-up view*/
+/*visible even if not >640px, just not accessible*/
 
 .modal-overlay {
-  width: 60vw;
+  width: 50vw;
   height: 80vh;
+
   background-color: #000000e2;
   color: #ccc;
+  text-align: center;
+
   position: fixed;
   top: 30px;
+  margin-left: 1%;
 
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.modal input {
+  align-items: center;
+  margin: 10px;
+}
+
+.modal button {
+  margin: 5px;
 }
 
 /*---------------------*/
@@ -441,5 +455,10 @@ input {
     margin: 10px;
 
     font-size: large;
+  }
+
+  .modal-overlay {
+    margin-left: 15%;
+    margin-top: 50px;
   }
 }
