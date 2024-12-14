@@ -3,22 +3,22 @@ body,
 html {
   background-color: #a2c1d5;
   width: 100vw;
-  height: 100%;
+  min-height: 100vh;
+  /* height: 100vh; */
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* position: fixed; */
 }
 
-/*-----FetchWords-----*/
+/*-----userview-assignment---*/
 
 .outerContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  /* padding: 20px; */
   text-align: center;
 }
 
@@ -29,6 +29,10 @@ html {
   justify-content: center;
   align-items: center;
   margin: 0;
+}
+
+.appTitle h1 {
+  text-align: center;
 }
 
 .appTitle button {
@@ -63,14 +67,13 @@ input {
 
 /* colors for wrong/correct answers*/
 .correct {
-  background-color: #d4edda;
-
-  color: #008c21;
+  background-color: #00ff3c;
+  color: #045417;
 }
 
 .wrong {
-  background-color: #f8d7da;
-  color: #7e000f;
+  background-color: #ff0015;
+  color: #52030c;
 }
 
 .submit-btn {
@@ -208,6 +211,7 @@ input {
   background-color: #698a9f7c;
 }
 
+
 /*---adminview----*/
 .admin-nav {
   background-color: #3d60784f;
@@ -231,29 +235,68 @@ input {
   /* Adjust vertical centering */
 }
 
+.admin-btn-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  flex-grow: 1;
+  /* Allow the button container to grow and push the buttons to the bottom */
+}
+
 .nav-btn {
   color: white;
+  text-shadow: 2px 2px 5px #000000;
+}
+
+/* Link is automatically blue, hover tp avoid it*/
+.nav-btn:hover {
+  color: #000000;
+  outline: none;
+  /* Remove default focus outline (optional, but can be useful for custom designs) */
+  text-shadow: 2px 2px 5px #ffffff;
 }
 
 .db-wrapper {
   overflow-y: hidden;
   overflow-x: hidden;
+  /*bg color for debugging*/
+  /* background-color: #008c21; */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100vh;
   text-align: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.db-wrapper h2 {
+  width: 80%;
+  margin-top: 0;
+  margin-left: 15%;
+  /* margin-right: 50%; */
+}
+
 .db-inner {
+  /*bg color for debugging*/
+  /* background-color: #7e000f; */
+
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
 
-  height: 70vh;
+
+  height: 65vh;
   width: 100%;
   gap: 30px;
 
-  border: 1px solid #ccc;
   border-radius: 8px;
+
   /*scrolling*/
   overflow-y: auto;
   overflow-x: hidden;
@@ -261,6 +304,13 @@ input {
 
 .add-word-pair-btn {
   width: 50%;
+  height: 5%;
+
+  text-align: center;
+
+  padding: 5px;
+  margin-bottom: 40px;
+  margin-left: 10%;
 }
 
 .word-pair {
@@ -269,7 +319,7 @@ input {
   align-items: center;
   flex-direction: row;
 
-  width: 60vw;
+  /* width: 100%; */
   height: 10vh;
   margin: 10px;
 
@@ -294,17 +344,23 @@ input {
   justify-content: flex-end;
   /* align-items: center; */
   gap: 10px;
+  /* background-color: #000000; */
 }
 
 .action-buttons button {
-  width: 60px;
-  height: 50px;
+  width: 25%;
+  height: 90%;
   margin: 10px;
   font-size: small;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+
+  /* Prevent text from overflowing */
+  /* word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal; */
 }
 
 /*edit view*/
@@ -339,5 +395,54 @@ input {
   #admin-btn {
     display: grid;
     text-align: center;
+  }
+}
+
+@media only screen and (min-width: 640px) {
+
+  .home-buttons {
+    align-items: flex-end;
+    width: 50vw;
+  }
+
+  .home-buttons button {
+    text-align: center;
+    width: 50vw;
+  }
+
+  #admin-btn {
+    display: grid;
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+
+  .db-wrapper h2 {
+    margin-left: 10%;
+  }
+
+  .db-inner {
+    width: 80vw;
+    left: 10px;
+    font-size: larger;
+  }
+
+  .word-pair {
+    width: 60vw;
+  }
+
+  .action-buttons {
+    height: 100%;
+    align-items: center;
+  }
+
+  .action-buttons button {
+    min-width: 80px;
+    width: 50%;
+    height: 80%;
+    margin: 10px;
+
+    font-size: large;
   }
 }
