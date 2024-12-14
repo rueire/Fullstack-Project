@@ -39,25 +39,35 @@ app.post("/api", (req, res) => {
     if (!eng_word || !finn_word) {
         return res.status(400).json({ error: "Both English and Finnish words are required." });
     }
-
-    // no =>, this.lastID wont work
-    db.run(insertWords, [eng_word, finn_word], function (err) {
+    const checkWords = `SELECT * FROM words 
+        WHERE eng_word = ? AND finn_word = ?`;
+    db.get(checkWords, [eng_word, finn_word], (err, word) => {
         if (err) {
-            console.error("Error inserting data", err)
-            res.status(500).json({ error: "Failed to insert words", details: err.message });
+            console.error("Error fetching data", err)
             return;
         }
-        else {
-            // Use `this.lastID` to get the ID of the newly inserted row
-            //sqlite does not return result obj (err, result)
-            res.json({
-                id: this.lastID,
-                eng_word,
-                finn_word,
-            });
-
-            console.log("new pair added")
+        if (word) {
+            return res.status(400).json({ error: "Word pair already exists" });
         }
+        // no =>, this.lastID wont work
+        db.run(insertWords, [eng_word, finn_word], function (err) {
+            if (err) {
+                console.error("Error inserting data", err)
+                res.status(500).json({ error: "Failed to insert words", details: err.message });
+                return;
+            }
+            else {
+                // Use `this.lastID` to get the ID of the newly inserted row
+                //sqlite does not return result obj (err, result)
+                res.json({
+                    id: this.lastID,
+                    eng_word,
+                    finn_word,
+                });
+
+                console.log("new pair added")
+            }
+        })
     })
 });
 
@@ -67,14 +77,27 @@ app.patch("/api/:id", (req, res) => {
     const { eng_word, finn_word } = req.body;
     const editWords = `UPDATE words SET eng_word = ?, finn_word = ? WHERE id = ?`;
 
-    db.run(editWords, [eng_word, finn_word, id], (err) => {
+    //AI help to figure out how to do validation
+    const checkWords = `SELECT * FROM words 
+        WHERE eng_word = ? AND finn_word = ? AND id != ?`;
+    db.get(checkWords, [eng_word, finn_word, id], (err, word) => {
         if (err) {
-            console.error("Error updating data", err)
-            res.status(500).json({ error: "Failed to edit words", details: err.message });
+            console.error("Error inserting data", err);
             return;
         }
-        res.status(201).json({ id: this.lastID, eng_word, finn_word });
-        console.log("pair edited")
+        if (word) {
+            // If the word pair already exists, error
+            return res.status(400).json({ error: "Word pair already exists" });
+        }
+        db.run(editWords, [eng_word, finn_word, id], (err) => {
+            if (err) {
+                console.error("Error updating data", err)
+                res.status(500).json({ error: "Failed to edit words", details: err.message });
+                return;
+            }
+            res.status(201).json({ id: this.lastID, eng_word, finn_word });
+            console.log("pair edited")
+        })
     })
 });
 
