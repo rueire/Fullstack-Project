@@ -32,7 +32,11 @@ export default function EditWords({ currentWord, handleClose, refresh}) {
                 }),
             });
 
-            if(response.ok) {
+            if (!response.ok) {
+                const result = await response.json();
+                alert(result.error)
+            }
+            else {
                 const updatedWord = await response.json();
                 console.log("Editing ok: ", updatedWord)
                 refresh();
