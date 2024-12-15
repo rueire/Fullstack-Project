@@ -32,9 +32,10 @@ Get information to frontend, give user possibility to do assignment
 
 
 **Installation:** <br/> 
-            I'll figure this out later (im still missing docker etc)
             at root:<br/> 
             -npm install <br/> 
+            -npm start <br/> 
+            -Follow the link given to you 
 
 **API reference:** <br/> 
      main API endpoints for this app:
