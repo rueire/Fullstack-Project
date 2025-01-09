@@ -5,6 +5,11 @@ Project to show knowledge of backend development and how to make use of it using
 Finnish-English learning application <br />
 Get information to frontend, give user possibility to do assignment
 
+
+Link to screencast <br/> 
+Link expires 28/02/-25 <br/> 
+https://tuni-my.sharepoint.com/:v:/g/personal/reea_rinnemaki_tuni_fi/Ea_UpTwhWSBGuwjzYAQK6iwB9LSxJMPWRXI7xMBTy2t5vA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=XNnMOV <br/> 
+
 **Build status:** <br/> 
             Not applicable <br/> <br/> 
 **Code Style:** <br/> 
