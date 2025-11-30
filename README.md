@@ -6,9 +6,12 @@ Finnish-English learning application <br />
 Get information to frontend, give user possibility to do assignment
 
 
-Link to screencast <br/> 
-Link expires 28/02/-25 <br/> 
-https://tuni-my.sharepoint.com/:v:/g/personal/reea_rinnemaki_tuni_fi/Ea_UpTwhWSBGuwjzYAQK6iwB9LSxJMPWRXI7xMBTy2t5vA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=XNnMOV <br/> 
+Screencast link expired, now images <br/> 
+<img src="https://github.com/user-attachments/assets/088d1c2b-0672-492e-ab57-78b8898e4370" width="70%">
+<img src="https://github.com/user-attachments/assets/721cca0b-af12-4376-a928-a3144cb8ac40" width="40%">
+<img src="https://github.com/user-attachments/assets/85c1d26f-102c-4d6b-9dc0-843aa0ad3338" width="43%">
+<img src="https://github.com/user-attachments/assets/4f27bb1e-141f-4ac6-97b0-52ab7e91af98" width="70%">
+<br/> 
 
 **Build status:** <br/> 
             Not applicable <br/> <br/> 
